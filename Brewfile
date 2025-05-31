@@ -1,0 +1,7 @@
+tap    "koekeishiya/formulae"
+brew   "koekeishiya/formulae/skhd"
+service "koekeishiya/formulae/skhd"
+tap  "homebrew/cask-fonts"
+brew "neofetch"
+brew "starship"
+cask "font-jetbrains-mono-nerd-font"

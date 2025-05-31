@@ -1,0 +1,73 @@
+#!/bin/bash
+# File: ~/scripts/cdp - AppsOnAir CodePush wrapper for release-react
+
+show_usage() {
+    echo "Usage: cdp [--skip-branch-check] <environment> [platform]"
+    echo
+    echo "  environment:  staging or production"
+    echo "  platform:     ios (default) or android"
+    echo
+    echo "  --skip-branch-check: Skip the branch name check"
+}
+
+if [ "$1" = "--skip-branch-check" ]; then
+    skip_branch_check=true
+    shift
+else
+    skip_branch_check=false
+fi
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$environment" = "production" ] && [[ "$current_branch" != release/* ]]; then
+  echo "Bro it's production release. You need to be on a release branch."
+  exit 1
+fi
+
+if [ -z "$1" ]; then
+    echo "Error: Environment parameter is required"
+    show_usage
+    exit 1
+fi
+
+# Get environment parameter
+environment=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+shift
+
+# Validate environment
+if [ "$environment" != "staging" ] && [ "$environment" != "production" ]; then
+    echo "Error: Invalid environment. Must be 'staging' or 'production'"
+    show_usage
+    exit 1
+fi
+
+# Get platform parameter (default to ios)
+platform=${1:-ios}
+platform=$(echo "$platform" | tr '[:upper:]' '[:lower:]')
+
+# Validate platform
+if [ "$platform" != "ios" ] && [ "$platform" != "android" ]; then
+    echo "Error: Invalid platform. Must be 'ios' or 'android'"
+    show_usage
+    exit 1
+fi
+
+# Set app name based on environment and platform
+if [ "$environment" = "staging" ]; then
+    if [ "$platform" = "ios" ]; then
+        app_name="swish-club-swishclub-ios"
+    else
+        app_name="swish-club-swishclub-android"
+    fi
+    deployment="Staging"
+else
+    if [ "$platform" = "ios" ]; then
+        app_name="swish-club-swishclubprod-ios"
+    else
+        app_name="swish-club-swishclubprod-android"
+    fi
+    deployment="Production"
+fi
+
+# Forward arguments to appsonair-codepush release-react with mandatory flag
+echo "Executing: appsonair-codepush release-react $app_name $platform --deployment $deployment --mandatory"
+appsonair-codepush release-react "$app_name" --mandatory

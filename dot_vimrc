@@ -1,0 +1,3 @@
+syntax on
+packloadall
+set tabstop=4
