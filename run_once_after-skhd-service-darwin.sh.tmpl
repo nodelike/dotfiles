@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+{{ if eq .chezmoi.os "darwin" }}
+command -v skhd >/dev/null || exit 0
+
+# install & launch the user-agent if it isn't already running
+skhd --install-service >/dev/null 2>&1 || true
+skhd --start-service
+{{ end }}
+
