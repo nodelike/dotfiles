@@ -1,7 +1,7 @@
 # Terminal
 alt - return : ~/scripts/focus-app.sh "Alacritty"
 alt - c : ~/scripts/focus-app.sh "Cursor"
-alt - f : ~/scripts/focus-app.sh "Firefox"
+alt - f : ~/scripts/focus-app.sh "Zen"
 alt - s : ~/scripts/focus-app.sh "Spotify"
 alt - t : ~/scripts/focus-app.sh "Microsoft Teams"
 alt - d : ~/scripts/focus-app.sh "DBeaver"
