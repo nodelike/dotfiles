@@ -1,6 +1,8 @@
 # Terminal
 alt - return : ~/scripts/focus-app.sh "Alacritty"
 alt - c : ~/scripts/focus-app.sh "Cursor"
+alt - e : ~/scripts/focus-app.sh "eqMac"
+alt - w : ~/scripts/focus-app.sh "WhatsApp"
 alt - f : ~/scripts/focus-app.sh "Zen"
 alt - s : ~/scripts/focus-app.sh "Spotify"
 alt - t : ~/scripts/focus-app.sh "Microsoft Teams"
